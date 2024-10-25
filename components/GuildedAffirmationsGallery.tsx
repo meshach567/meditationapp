@@ -1,40 +1,46 @@
-import { View, Text, FlatList, Pressable, Image, ImageSourcePropType } from 'react-native'
-import React from 'react';
-import { GalleryPreviewData } from '@/constants/model';
-import { Link } from 'expo-router';
+import { Image, View, Text, FlatList, Pressable } from "react-native";
+import images from "@/constants/affirmations-images";
+import { GalleryPreviewData } from "@/constants/models/AffirmationCategory";
+import { Link } from "expo-router";
 
-interface GuildedAffirmationsGalleryProps {
-    title: string,
-    previews: GalleryPreviewData[]
+interface GuidedAffirmationsGalleryProps {
+    title: string;
+    products: GalleryPreviewData[];
 }
 
-const GuildedAffirmationsGallery = ({ title, previews }: GuildedAffirmationsGalleryProps) => {
+const GuidedAffirmationsGallery = ({
+    title,
+    products,
+}: GuidedAffirmationsGalleryProps) => {
     return (
-        <View className='my-5'>
-            <View className='mb-2'>
-                <Text className='text-white font-bold text-xl'>{title}</Text>
+        <View className="my-5">
+            <View className="mb-2">
+                <Text className="text-white font-bold text-xl">{title}</Text>
             </View>
-            <View className='text-white font-bold text-xl'>
+            <View className="space-y-2">
                 <FlatList
-                  data={previews}
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item) => item.id.toString()}
-                  renderItem={({ item }) => (
-                    <Link href={`/affirmation/${item.id}`} asChild>
-                        <Pressable>
-                            <View className='h-36 w-32 rounded-md mr-4'>
-                                <Image source={item.image as ImageSourcePropType}
-                                resizeMode='cover'
-                                className='w-full h-full'
-                                />
-                            </View>
-                        </Pressable>
-                    </Link>
-                  )}
+                    data={products}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item, index }) => (
+                        <Link href={`/affirmations/${item.id}`} asChild>
+                            <Pressable>
+                                <View className="h-36 w-32 rounded-md mr-4">
+                                    <Image
+                                        source={item.image}
+                                        resizeMode="cover"
+                                        className="w-full h-full"
+                                    />
+                                    <Text>ProductGallery</Text>
+                                </View>
+                            </Pressable>
+                        </Link>
+                    )}
+                    horizontal
                 />
             </View>
         </View>
-    )
-}
+    );
+};
 
-export default GuildedAffirmationsGallery
+export default GuidedAffirmationsGallery;
